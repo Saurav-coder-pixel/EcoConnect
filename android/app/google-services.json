@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "951657633245",
+    "project_id": "account-flow-473s7o",
+    "storage_bucket": "account-flow-473s7o.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951657633245:android:93df370600860f1921d234",
+        "android_client_info": {
+          "package_name": "com.example.setu3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951657633245-dl5nd0qdcjamsqbb16paafv2pj1ck0cd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmaA-J-GMB-W4_U_4VfJ7yLp5NPeG1ImM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951657633245-dl5nd0qdcjamsqbb16paafv2pj1ck0cd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
