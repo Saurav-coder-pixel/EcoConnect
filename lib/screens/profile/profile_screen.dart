@@ -20,24 +20,36 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: CircleAvatar(
-                radius: 75,
-                backgroundImage: NetworkImage(student.image),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF8BC34A), // Light Green
+              Color(0xFF388E3C), // Dark Green
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: CircleAvatar(
+                  radius: 75,
+                  backgroundImage: NetworkImage(student.image),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Text('Name: ${student.name}', style: const TextStyle(fontSize: 18)),
-            Text('Enrollment Number: ${student.enrollmentNumber}', style: const TextStyle(fontSize: 18)),
-            Text('Branch: ${student.branch}', style: const TextStyle(fontSize: 18)),
-            Text('Year: ${student.year}', style: const TextStyle(fontSize: 18)),
-            Text('Other Details: ${student.otherDetails}', style: const TextStyle(fontSize: 18)),
-          ],
+              const SizedBox(height: 20),
+              Text('Name: ${student.name}', style: const TextStyle(fontSize: 18)),
+              Text('Enrollment Number: ${student.enrollmentNumber}', style: const TextStyle(fontSize: 18)),
+              Text('Branch: ${student.branch}', style: const TextStyle(fontSize: 18)),
+              Text('Year: ${student.year}', style: const TextStyle(fontSize: 18)),
+              Text('Other Details: ${student.otherDetails}', style: const TextStyle(fontSize: 18)),
+            ],
+          ),
         ),
       ),
     );
