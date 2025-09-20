@@ -9,18 +9,19 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    LearnScreen(),
-    TasksScreen(),
-    GamesScreen(),
-    ChatScreen(),
-    ProfileScreen(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const HomeScreenContent(), // Placeholder for Home Screen content
+    const LearnScreen(),
+    const TasksScreen(),
+    const GamesScreen(),
+    const ChatScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('EcoConnect'),
+        backgroundColor: Colors.green,
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -41,8 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF8BC34A), // Light Green
-              Color(0xFF388E3C), // Dark Green
+              Color(0xFF8BC34A),
+              Color(0xFF388E3C),
             ],
           ),
         ),
@@ -52,6 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
             label: 'Learn',
@@ -74,9 +80,25 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green[800],
+        selectedItemColor: Colors.amber[800],
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+      ),
+    );
+  }
+}
+
+class HomeScreenContent extends StatelessWidget {
+  const HomeScreenContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text(
+        'Welcome to the EcoConnect Home Screen!',
+        style: TextStyle(fontSize: 20, color: Colors.white),
+        textAlign: TextAlign.center,
       ),
     );
   }

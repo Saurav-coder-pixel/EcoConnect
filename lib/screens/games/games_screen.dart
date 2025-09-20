@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ecoconnect/screens/games/tic_tac_toe_screen.dart';
+import 'package:ecoconnect/screens/games/chess_screen.dart';
 
 class GamesScreen extends StatelessWidget {
   const GamesScreen({super.key});
@@ -26,8 +28,9 @@ class GamesScreen extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Tic Tac Toe - Coming Soon!')),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TicTacToeScreen()),
                   );
                 },
                 child: const Text('Tic Tac Toe'),
@@ -42,8 +45,9 @@ class GamesScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Chess - Coming Soon!')),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ChessScreen()),
                   );
                 },
                 child: const Text('Chess'),
