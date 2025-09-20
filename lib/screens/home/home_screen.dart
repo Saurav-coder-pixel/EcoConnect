@@ -1,32 +1,34 @@
-import 'package:ecoconnect/screens/chat/chat_screen.dart';
-import 'package:ecoconnect/screens/games/games_screen.dart';
-import 'package:ecoconnect/screens/learn/learn_screen.dart';
-import 'package:ecoconnect/screens/profile/profile_screen.dart';
-import 'package:ecoconnect/screens/tasks/tasks_screen.dart';
+
 import 'package:flutter/material.dart';
+import 'package:ecoconnect/api/auth_service.dart';
+import 'package:ecoconnect/screens/home/main_home_screen.dart';
+import 'package:ecoconnect/screens/learn/learn_screen.dart';
+import 'package:ecoconnect/screens/tasks/tasks_screen.dart';
+import 'package:ecoconnect/screens/games/games_screen.dart';
+import 'package:ecoconnect/screens/chat/chat_screen.dart';
+import 'package:ecoconnect/screens/profile/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  final AuthService _auth = AuthService();
+  int _currentIndex = 0;
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    const HomeScreenContent(), // Placeholder for Home Screen content
-    const LearnScreen(),
-    const TasksScreen(),
-    const GamesScreen(),
-    const ChatScreen(),
-    const ProfileScreen(),
+  final List<Widget> _children = [
+    MainHomeScreen(),
+    LearnScreen(),
+    TasksScreen(),
+    GamesScreen(),
+    ChatScreen(),
+    ProfileScreen(),
   ];
 
-  void _onItemTapped(int index) {
+  void onTabTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _currentIndex = index;
     });
   }
 
@@ -34,71 +36,47 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('EcoConnect'),
-        backgroundColor: Colors.green,
+        title: Text('EcoConnect'),
+        actions: <Widget>[
+          TextButton.icon(
+            icon: Icon(Icons.person, color: Colors.white),
+            label: Text('Logout', style: TextStyle(color: Colors.white)),
+            onPressed: () async {
+              await _auth.signOut();
+            },
+          )
+        ],
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF8BC34A),
-              Color(0xFF388E3C),
-            ],
-          ),
-        ),
-        child: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
-      ),
+      body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: new Icon(Icons.home, color: Colors.green),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
+            icon: new Icon(Icons.school, color: Colors.green),
             label: 'Learn',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.task),
+            icon: new Icon(Icons.check_circle, color: Colors.green),
             label: 'Tasks',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.videogame_asset),
+            icon: Icon(Icons.games, color: Colors.green),
             label: 'Games',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
+            icon: Icon(Icons.chat, color: Colors.green),
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
+            icon: Icon(Icons.person, color: Colors.green),
             label: 'Profile',
-          ),
+          )
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-      ),
-    );
-  }
-}
-
-class HomeScreenContent extends StatelessWidget {
-  const HomeScreenContent({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Welcome to the EcoConnect Home Screen!',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-        textAlign: TextAlign.center,
       ),
     );
   }
