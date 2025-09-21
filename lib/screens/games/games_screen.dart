@@ -11,7 +11,7 @@ class GamesScreen extends StatelessWidget {
     final List<Map<String, dynamic>> games = [
       {
         'title': 'Tic Tac Toe',
-        'image': 'https://i.imgur.com/8i21sYc.png',
+        'image': 'https://static.vecteezy.com/system/resources/previews/000/381/430/original/tic-tac-toe-game-vector.jpg',
         'route': const TicTacToeScreen(),
         'comingSoon': false,
       },
@@ -139,7 +139,7 @@ class GameCard extends StatelessWidget {
               height: 60,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black.withAlpha(153),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(15.0),
                   bottomRight: Radius.circular(15.0),

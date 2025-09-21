@@ -7,10 +7,10 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.toggleView});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 

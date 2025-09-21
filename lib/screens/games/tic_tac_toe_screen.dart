@@ -5,10 +5,10 @@ class TicTacToeScreen extends StatefulWidget {
   const TicTacToeScreen({super.key});
 
   @override
-  _TicTacToeScreenState createState() => _TicTacToeScreenState();
+  TicTacToeScreenState createState() => TicTacToeScreenState();
 }
 
-class _TicTacToeScreenState extends State<TicTacToeScreen> {
+class TicTacToeScreenState extends State<TicTacToeScreen> {
   List<String> _board = List.filled(9, '');
   String _currentPlayer = 'X';
   String _winner = '';
@@ -83,7 +83,7 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                'https://i.imgur.com/8i21sYc.png',
+                'https://static.vecteezy.com/system/resources/previews/000/381/430/original/tic-tac-toe-game-vector.jpg',
                 height: 150,
               ),
               const SizedBox(height: 20),

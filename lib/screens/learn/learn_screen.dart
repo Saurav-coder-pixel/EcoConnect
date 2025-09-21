@@ -10,6 +10,42 @@ class LearnScreen extends StatefulWidget {
 
 class _LearnScreenState extends State<LearnScreen> {
   int _selectedIndex = 0;
+  String _selectedFilter = 'All';
+
+  final allLessons = [
+    {
+      'title': 'Climate Change Basics',
+      'subtitle': 'Understanding global warming and its impact on India',
+      'duration': '15 min',
+      'points': '+50 pts',
+      'isCompleted': true,
+      'category': 'Climate Science'
+    },
+    {
+      'title': 'Water Conservation',
+      'subtitle': 'Learn how to conserve water in your daily life',
+      'duration': '20 min',
+      'points': '+75 pts',
+      'isCompleted': false,
+      'category': 'Water Resources'
+    },
+    {
+      'title': 'Renewable Energy Sources',
+      'subtitle': 'An introduction to solar, wind, and hydro power.',
+      'duration': '25 min',
+      'points': '+80 pts',
+      'isCompleted': false,
+      'category': 'Climate Science'
+    },
+    {
+      'title': 'The Importance of Wetlands',
+      'subtitle': 'Learn about the role of wetlands in our ecosystem.',
+      'duration': '20 min',
+      'points': '+70 pts',
+      'isCompleted': false,
+      'category': 'Water Resources'
+    }
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +83,10 @@ class _LearnScreenState extends State<LearnScreen> {
   }
 
   Widget _buildEnvironmentSection() {
+    final filteredLessons = _selectedFilter == 'All'
+        ? allLessons
+        : allLessons.where((lesson) => lesson['category'] == _selectedFilter).toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -84,38 +124,45 @@ class _LearnScreenState extends State<LearnScreen> {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              _buildFilterButton('All', true),
+              _buildFilterButton('All', _selectedFilter == 'All', () {
+                setState(() {
+                  _selectedFilter = 'All';
+                });
+              }),
               const SizedBox(width: 8),
-              _buildFilterButton('Climate Science', false),
+              _buildFilterButton('Climate Science', _selectedFilter == 'Climate Science', () {
+                setState(() {
+                  _selectedFilter = 'Climate Science';
+                });
+              }),
               const SizedBox(width: 8),
-              _buildFilterButton('Water Resources', false),
+              _buildFilterButton('Water Resources', _selectedFilter == 'Water Resources', () {
+                setState(() {
+                  _selectedFilter = 'Water Resources';
+                });
+              }),
             ],
           ),
         ),
         const SizedBox(height: 20),
-        const Text(
-          'All Lessons(4)',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        Text(
+          'All Lessons(${filteredLessons.length})',
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
         Expanded(
-          child: ListView(
-            children: [
-              _buildLessonCard(
-                'Climate Change Basics',
-                'Understanding global warming and its impact on India',
-                '15 min',
-                '+50 pts',
-                true,
-              ),
-              _buildLessonCard(
-                'Water Conservation',
-                'Learn how to conserve water in your daily life',
-                '20 min',
-                '+75 pts',
-                false,
-              ),
-            ],
+          child: ListView.builder(
+            itemCount: filteredLessons.length,
+            itemBuilder: (context, index) {
+              final lesson = filteredLessons[index];
+              return _buildLessonCard(
+                lesson['title'] as String,
+                lesson['subtitle'] as String,
+                lesson['duration'] as String,
+                lesson['points'] as String,
+                lesson['isCompleted'] as bool,
+              );
+            },
           ),
         ),
       ],
@@ -131,9 +178,9 @@ class _LearnScreenState extends State<LearnScreen> {
     );
   }
 
-  Widget _buildFilterButton(String text, bool isSelected) {
+  Widget _buildFilterButton(String text, bool isSelected, VoidCallback onPressed) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: isSelected ? Colors.green : Colors.grey[300],
         foregroundColor: isSelected ? Colors.white : Colors.black,

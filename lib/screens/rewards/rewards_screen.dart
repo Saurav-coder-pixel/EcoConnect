@@ -7,37 +7,39 @@ class RewardsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Leaderboard 🏆',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            Text('See how you rank among eco-warriors'),
-            SizedBox(height: 20),
-            _buildYourPositionCard(),
-            SizedBox(height: 20),
-            _buildRewardSection(),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildToggleButton('Individual', true),
-                SizedBox(width: 10),
-                _buildToggleButton('Schools', false),
-              ],
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Top Eco-Warriors',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: ListView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Leaderboard 🏆',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              Text('See how you rank among eco-warriors'),
+              SizedBox(height: 20),
+              _buildYourPositionCard(),
+              SizedBox(height: 20),
+              _buildRewardSection(),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildToggleButton('Individual', true),
+                  SizedBox(width: 10),
+                  _buildToggleButton('Schools', false),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Top Eco-Warriors',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   _buildLeaderboardItem('R', 'Rahul', '2200', '1'),
                   _buildLeaderboardItem('P', 'Priya', '2450', '2'),
@@ -46,8 +48,8 @@ class RewardsScreen extends StatelessWidget {
                   _buildLeaderboardItem('V', 'Vikram Singh', '1050', '5'),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -136,7 +138,7 @@ class RewardsScreen extends StatelessWidget {
       elevation: 2,
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: SizedBox(
-        width: 150,
+        width: 180,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:ecoconnect/screens/leaderboard/leaderboard_screen.dart';
 
 class MainHomeScreen extends StatelessWidget {
   const MainHomeScreen({super.key});
@@ -44,10 +45,10 @@ class MainHomeScreen extends StatelessWidget {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 children: [
-                  _buildImpactCard('Challenges Completed', '12', Icons.track_changes),
-                  _buildImpactCard('Lessons Finished', '8', Icons.book),
-                  _buildImpactCard('School Rank', '#3', Icons.leaderboard),
-                  _buildImpactCard('Friends', '24', Icons.people),
+                  _buildImpactCard(context, 'Challenges Completed', '12', Icons.track_changes),
+                  _buildImpactCard(context, 'Lessons Finished', '8', Icons.book),
+                  _buildImpactCard(context, 'School Rank', '#3', Icons.leaderboard),
+                  _buildImpactCard(context, 'Friends', '24', Icons.people),
                 ],
               ),
               SizedBox(height: 30),
@@ -77,19 +78,29 @@ class MainHomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildImpactCard(String title, String value, IconData icon) {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 40, color: Colors.green),
-            SizedBox(height: 10),
-            Text(value, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            Text(title, textAlign: TextAlign.center),
-          ],
+  Widget _buildImpactCard(BuildContext context, String title, String value, IconData icon) {
+    return GestureDetector(
+      onTap: () {
+        if (title == 'School Rank') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LeaderboardScreen()),
+          );
+        }
+      },
+      child: Card(
+        elevation: 2,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 40, color: Colors.green),
+              SizedBox(height: 10),
+              Text(value, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              Text(title, textAlign: TextAlign.center),
+            ],
+          ),
         ),
       ),
     );
@@ -100,7 +111,7 @@ class MainHomeScreen extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.green.withOpacity(0.2),
+          backgroundColor: Colors.green.withAlpha(51),
           child: Icon(icon, size: 30, color: Colors.green),
         ),
         SizedBox(height: 5),
