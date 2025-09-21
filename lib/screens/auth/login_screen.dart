@@ -4,7 +4,7 @@ import 'package:ecoconnect/api/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function toggleView;
-  LoginScreen({required this.toggleView});
+  const LoginScreen({super.key, required this.toggleView});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();

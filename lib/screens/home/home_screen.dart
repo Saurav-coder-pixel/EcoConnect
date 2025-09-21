@@ -7,8 +7,11 @@ import 'package:ecoconnect/screens/tasks/tasks_screen.dart';
 import 'package:ecoconnect/screens/games/games_screen.dart';
 import 'package:ecoconnect/screens/chat/chat_screen.dart';
 import 'package:ecoconnect/screens/profile/profile_screen.dart';
+import 'package:ecoconnect/screens/rewards/rewards_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -38,6 +41,24 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('EcoConnect'),
         actions: <Widget>[
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const RewardsScreen()),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  Icon(Icons.monetization_on, color: Colors.amber, size: 28,),
+                  const SizedBox(width: 4),
+                  Text('1250', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ),
           TextButton.icon(
             icon: Icon(Icons.person, color: Colors.white),
             label: Text('Logout', style: TextStyle(color: Colors.white)),
@@ -53,15 +74,15 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Icons.home, color: Colors.green),
+            icon: Icon(Icons.home, color: Colors.green),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.school, color: Colors.green),
+            icon: Icon(Icons.school, color: Colors.green),
             label: 'Learn',
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.check_circle, color: Colors.green),
+            icon: Icon(Icons.check_circle, color: Colors.green),
             label: 'Tasks',
           ),
           BottomNavigationBarItem(
