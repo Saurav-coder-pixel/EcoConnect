@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class TicTacToeScreen extends StatefulWidget {
@@ -8,84 +9,65 @@ class TicTacToeScreen extends StatefulWidget {
 }
 
 class _TicTacToeScreenState extends State<TicTacToeScreen> {
-  List<String> board = ['', '', '', '', '', '', '', '', ''];
-  String currentPlayer = 'X';
-  bool gameOver = false;
-  String winner = '';
+  List<String> _board = List.filled(9, '');
+  String _currentPlayer = 'X';
+  String _winner = '';
 
-  void _resetGame() {
-    setState(() {
-      board = ['', '', '', '', '', '', '', '', ''];
-      currentPlayer = 'X';
-      gameOver = false;
-      winner = '';
-    });
-  }
-
-  void _makeMove(int index) {
-    if (board[index] == '' && !gameOver) {
+  void _play(int index) {
+    if (_board[index] == '' && _winner == '') {
       setState(() {
-        board[index] = currentPlayer;
+        _board[index] = _currentPlayer;
         _checkWinner();
-        currentPlayer = currentPlayer == 'X' ? 'O' : 'X';
+        if (_winner == '') {
+          _currentPlayer = _currentPlayer == 'X' ? 'O' : 'X';
+        }
       });
     }
   }
 
   void _checkWinner() {
-    const winningPatterns = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-      [0, 4, 8], [2, 4, 6]             // Diagonals
-    ];
-
-    for (var pattern in winningPatterns) {
-      final first = board[pattern[0]];
-      final second = board[pattern[1]];
-      final third = board[pattern[2]];
-
-      if (first != '' && first == second && first == third) {
-        setState(() {
-          gameOver = true;
-          winner = first;
-        });
+    // Check rows
+    for (int i = 0; i < 9; i += 3) {
+      if (_board[i] != '' &&
+          _board[i] == _board[i + 1] &&
+          _board[i] == _board[i + 2]) {
+        _winner = _board[i];
         return;
       }
     }
 
-    if (!board.contains('')) {
-      setState(() {
-        gameOver = true;
-        winner = 'Draw';
-      });
+    // Check columns
+    for (int i = 0; i < 3; i++) {
+      if (_board[i] != '' &&
+          _board[i] == _board[i + 3] &&
+          _board[i] == _board[i + 6]) {
+        _winner = _board[i];
+        return;
+      }
+    }
+
+    // Check diagonals
+    if (_board[0] != '' && _board[0] == _board[4] && _board[0] == _board[8]) {
+      _winner = _board[0];
+      return;
+    }
+    if (_board[2] != '' && _board[2] == _board[4] && _board[2] == _board[6]) {
+      _winner = _board[2];
+      return;
+    }
+
+    // Check for a draw
+    if (!_board.contains('')) {
+      _winner = 'Draw';
     }
   }
 
-  Widget _buildGrid() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-      ),
-      itemCount: 9,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () => _makeMove(index),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-            ),
-            child: Center(
-              child: Text(
-                board[index],
-                style: const TextStyle(fontSize: 40),
-              ),
-            ),
-          ),
-        );
-      },
-    );
+  void _resetGame() {
+    setState(() {
+      _board = List.filled(9, '');
+      _currentPlayer = 'X';
+      _winner = '';
+    });
   }
 
   @override
@@ -93,23 +75,58 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tic Tac Toe'),
+        backgroundColor: Colors.green,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _buildGrid(),
-            if (gameOver)
-              Text(
-                winner == 'Draw' ? 'It\'s a Draw!' : 'Winner: $winner',
-                style: const TextStyle(fontSize: 24),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.network(
+                'https://i.imgur.com/8i21sYc.png',
+                height: 150,
               ),
-            if (gameOver)
+              const SizedBox(height: 20),
+              Text(
+                _winner == ''
+                    ? 'Current Player: $_currentPlayer'
+                    : _winner == 'Draw'
+                        ? 'It\'s a Draw!'
+                        : 'Winner: $_winner',
+                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
+                itemCount: 9,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => _play(index),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                      ),
+                      child: Center(
+                        child: Text(
+                          _board[index],
+                          style: const TextStyle(fontSize: 50),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _resetGame,
                 child: const Text('Reset Game'),
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );

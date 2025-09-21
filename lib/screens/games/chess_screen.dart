@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class ChessScreen extends StatelessWidget {
@@ -8,9 +9,13 @@ class ChessScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chess'),
+        backgroundColor: Colors.green,
       ),
       body: const Center(
-        child: Text('Chess - Coming Soon!', style: TextStyle(fontSize: 24)),
+        child: Text(
+          'Chess Game - Coming Soon!',
+          style: TextStyle(fontSize: 24),
+        ),
       ),
     );
   }

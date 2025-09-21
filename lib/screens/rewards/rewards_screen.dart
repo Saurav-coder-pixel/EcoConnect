@@ -20,6 +20,8 @@ class RewardsScreen extends StatelessWidget {
             SizedBox(height: 20),
             _buildYourPositionCard(),
             SizedBox(height: 20),
+            _buildRewardSection(),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -100,6 +102,57 @@ class RewardsScreen extends StatelessWidget {
         title: Text(name),
         subtitle: Text('Level 5'), // Assuming a static level for now
         trailing: Text('$rank - $points'),
+      ),
+    );
+  }
+
+  Widget _buildRewardSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Rewards ✨',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        Text('Claim your rewards for your hard work'),
+        SizedBox(height: 20),
+        SizedBox(
+          height: 150, // Give a fixed height to the horizontal list
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              _buildRewardItem('Eco-Warrior Badge', '500 points'),
+              _buildRewardItem('Plant a Tree', '1000 points'),
+              _buildRewardItem('Reusable Water Bottle', '1500 points'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRewardItem(String title, String points) {
+    return Card(
+      elevation: 2,
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      child: SizedBox(
+        width: 150,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(title, style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+              SizedBox(height: 10),
+              Text(points),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text('Claim'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
